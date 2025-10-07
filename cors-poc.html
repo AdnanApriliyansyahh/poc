@@ -24,7 +24,7 @@
         }
 
         // Lakukan permintaan CORS ke endpoint WP-JSON
-        fetch('https://insights.deribit.com/wp-json', {
+        fetch('https://insights.deribit.com/wp-json/wp/v2/users', {
             method: 'GET',
             credentials: 'include', // Penting: Mengirim kredensial (cookie) jika ada
             headers: {

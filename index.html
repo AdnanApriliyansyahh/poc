@@ -10,9 +10,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #121212; /* Latar belakang gelap */
+            background-color: #121212;
             font-family: 'Consolas', 'Courier New', monospace;
-            color: #00ff00; /* Warna hijau neon */
+            color: #00ff00;
             padding: 20px;
             box-sizing: border-box;
         }
@@ -24,11 +24,11 @@
             background: rgba(0, 0, 0, 0.5);
             box-shadow: 0 0 15px #00ff00, 0 0 25px #00ff00, 0 0 35px #00ff00;
             transition: all 0.5s ease-in-out;
-            white-space: pre-wrap; /* Biarkan teks otomatis wrap */
-            word-break: break-word; /* Pecah kata jika terlalu panjang */
+            white-space: pre-wrap;
+            word-break: break-word;
             width: 90%;
             max-height: 80vh;
-            overflow-y: auto; /* Scroll jika melebihi tinggi layar */
+            overflow-y: auto;
         }
         h2:hover {
             transform: scale(1.05);
@@ -45,13 +45,7 @@
 </head>
 <body>
     <script type="text/javascript">
-        var domain = document.domain;
-        if (domain === "" || domain === "127.0.0.1") {
-            domain = "";
-        } else {
-            domain = " " + domain;
-        }
-
+        // Hilangkan pengambilan domain
         var referrer = document.referrer;
         if (referrer === "") {
             referrer = " - ";
@@ -59,8 +53,8 @@
             referrer = " " + referrer;
         }
 
-        // Tulisan yang ingin ditampilkan
-        var textToType = "Proof of Concept" + domain + ". Referrer:" + referrer;
+        // Teks yang ingin ditampilkan (tanpa domain)
+        var textToType = "Proof of Concept. Referrer:" + referrer;
 
         var elem = document.createElement("h2");
         document.body.appendChild(elem);
